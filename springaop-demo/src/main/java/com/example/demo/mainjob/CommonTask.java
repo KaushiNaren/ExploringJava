@@ -4,6 +4,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import com.example.demo.aspect.Loggable;
+import com.example.demo.common.AOPCustomException;
 
 @Component
 public class CommonTask {
@@ -28,6 +29,12 @@ public class CommonTask {
 	public void executeAddition(int num) {
 		int add = num + num;
 		System.out.println("Addition Done --->" + add);
+	}
+
+	@Loggable
+	public void throwException(int num) throws AOPCustomException {
+		throw new AOPCustomException("AOP After Thworing Advice Check !!!!");
+
 	}
 
 }

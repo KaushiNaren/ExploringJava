@@ -4,6 +4,7 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -48,5 +49,13 @@ public class LoggingAspect {
 
 		System.out.println(
 				"Aspect AfterRunning!! " + joinPoint.getSignature().getName() + "   ---ReturnResult is -->" + result);
+	}
+
+	@AfterThrowing(pointcut = "@annotation(com.example.demo.aspect.Loggable)", throwing = "error")
+	public void logAfterThrowing(JoinPoint joinPoint, Throwable error) {
+
+		System.out.println(
+				"Aspect After Throwing!! " + joinPoint.getSignature().getName() + "   --- Exception is  -->" + error);
+
 	}
 }
