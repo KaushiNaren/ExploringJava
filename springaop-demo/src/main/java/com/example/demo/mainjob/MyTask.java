@@ -15,11 +15,15 @@ public class MyTask {
 	CommonTask commonTask;
 
 	@Scheduled(fixedRate = 20000)
-	public void schedule() throws AOPCustomException {
+	public void schedule() {
 		// commonTask.executeTask(taskNumber++);
 		taskNumber++;
 		commonTask.getMultiplication(taskNumber);
 		// commonTask.executeAddition(taskNumber);
-		commonTask.throwException(taskNumber);
+		try {
+			commonTask.throwException(taskNumber);
+		} catch (AOPCustomException e) {
+
+		}
 	}
 }
