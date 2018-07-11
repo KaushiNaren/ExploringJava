@@ -11,8 +11,13 @@ import com.example.demo.common.AOPCustomException;
 public class MyTask {
 
 	private static int taskNumber = 0;
+
+	private CommonTask commonTask;
+
 	@Autowired
-	CommonTask commonTask;
+	public MyTask(CommonTask commonTask) {
+		this.commonTask = commonTask;
+	}
 
 	@Scheduled(fixedRate = 20000)
 	public void schedule() {
