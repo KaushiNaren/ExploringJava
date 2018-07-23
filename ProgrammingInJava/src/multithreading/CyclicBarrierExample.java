@@ -12,7 +12,7 @@ import java.util.concurrent.CyclicBarrier;
 public class CyclicBarrierExample {
 
 	public static void main(String... args) {
-		CyclicBarrier cb = new CyclicBarrier(2, BarrierAction::barrierAction);
+		CyclicBarrier cb = new CyclicBarrier(3, BarrierAction::barrierAction);
 		new Thread(new CBTask1(cb)::task1).start();
 		new Thread(new CBTask2(cb)::task2).start();
 	}

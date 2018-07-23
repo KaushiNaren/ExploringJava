@@ -11,7 +11,7 @@ import java.util.Arrays;
  */
 public class BubbleSortExample {
 	public static void main(String... args) {
-		int[] numArray = { 1, 2, 3, 4, 5};
+		int[] numArray = { 5, 4, 3, 2, 1};
 
 		for (int i = 0; i < numArray.length; i++) {
 			boolean swap = false;

@@ -1,5 +1,6 @@
+package datastructures;
 
-public class Example {
+public class PerfectSquareExample {
 	private static int iterationCount = 0;
 
 	public static void main(String... args) {

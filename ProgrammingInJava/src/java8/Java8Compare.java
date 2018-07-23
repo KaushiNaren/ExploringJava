@@ -17,16 +17,28 @@ public class Java8Compare {
 		list.add(emp2);
 		list.add(emp1);
 		list.add(emp3);
-		
+
 		System.out.println("Before Sorting->:");
 		list.forEach(System.out::println);
-		
+
 		System.out.println("Java8 Compare Method 11111");
 		Collections.sort(list, Comparator.comparing(EmpComparator8::getId));
 		list.sort(Comparator.comparing(EmpComparator8::getId));
 
+		Collections.sort(list, (e1, e2) -> e1.getName().compareTo(e2.getName()));
+		Collections.sort(list, Comparator.comparing(EmpComparator8::getId));
+		list.sort((e1, e2) -> e1.getName().compareTo(e2.getName()));
+
+		list.sort(Comp1::compareeeee);
+
 	}
 
+}
+
+class Comp1 {
+	public static int compareeeee(EmpComparator8 emp1, EmpComparator8 emp2) {
+		return emp1.getId() - emp2.getId();
+	}
 }
 
 class EmpComparator8 {
