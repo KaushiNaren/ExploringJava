@@ -1,0 +1,82 @@
+package concurrency;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class ProducerConsumerExample {
+	public static void main(String... args) {
+
+		ProducerConsumer producerConsumer = new ProducerConsumer(new Store());
+		new Thread(producerConsumer::produce).start();
+		new Thread(producerConsumer::consume).start();
+	}
+}
+
+class ProducerConsumer {
+
+	private final Store store;
+
+	public ProducerConsumer(Store store) {
+		this.store = store;
+	}
+
+	public void produce() {
+
+		for (int i = 1; i <= 10; i++) {
+			store.produce("item" + i);
+		}
+	}
+
+	public void consume() {
+
+		while (true) {
+			String item = this.store.consume();
+			if (item.equals("item10")) {
+				break;
+			}
+		}
+	}
+}
+
+class Store {
+	private final List<String> itemList;
+
+	public Store() {
+		itemList = new ArrayList<String>();
+	}
+
+	public void produce(String item) {
+
+		synchronized (itemList) {
+
+			if (!itemList.isEmpty()) {
+				try {
+					itemList.wait();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+			itemList.add(item);
+			System.out.println("Produced->" + item);
+			itemList.notify();
+		}
+	}
+
+	public String consume() {
+
+		synchronized (itemList) {
+			if (itemList.isEmpty()) {
+				try {
+					itemList.wait();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+
+			String item = itemList.remove(0);
+			System.out.println("Cosumed->" + item);
+			itemList.notify();
+			return item;
+		}
+	}
+}
